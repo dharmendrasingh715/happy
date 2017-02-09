@@ -83,7 +83,32 @@ Create an IIFE to wrap code
 	    	Add open class and check if height is more than window add anchor class 
 	     */
 	    
-	    this.modal.className = this.modal.className + (this.modal.offsetHeight > window.innerHeight)
+	    this.modal.className = this.modal.className + (this.modal.offsetHeight > window.innerHeight ? " happy-messenger-open happy-messenger-anchored" : "happy-messenger-open" );
+	    this.overlay.className = this.overlay.className + " happy-messenger-open";
+	}
+
+	HappyMessenger.prototype.close = function() {
+
+		/*
+			Store context for this function
+		 */
+		var self = this;
+
+		/*
+			Remove open class 
+		 */
+		
+		this.modal.className = this.modal.className.replace(" happy-messenger-open", "");
+		this.overlay.className = this.overlay.className.replace(" happy-messenger-open", "");
+
+		/*
+		*	Listen for CSS transition End event and then
+		* 	Remove the nodes for DOM
+		 */
+		
+		this.modal.addEventListner(this.transitionEnd, function () {
+			// body...
+		});
 	}
 
 	function buildMessenger() {
